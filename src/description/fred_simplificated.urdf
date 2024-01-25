@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="fred2_description">
+
+
+    <material name="blue">
+      <color rgba="0 0 0.8 1"/>
+    </material>
+  
+    <material name="black">
+      <color rgba="0.37 0.37 0.37 1"/>
+    </material>
+  
+    <material name="white">
+      <color rgba="0.79 0.90 0.91 1"/>
+    </material>
+ 
+  
+<!-- !_____________________ BASE OF THE ROBOT -> LINK _____________________ -->
+  <link name="base_link">
+    <visual> <!-- *Define the visual properties of the link -->
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" /> <!-- *Define the position in relation of the base_link -->
+      <geometry> <!-- *Define the geometry information --> 
+        <mesh filename="file:///home/ubuntu/ros2_ws/src/fred2_description/meshes/base_link.stl" /> <!-- *The mesh file used for visualization of the link -->
+      </geometry>
+      <material name="white"> <!-- *Define the material properties of the link -->
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" /> <!-- *The RGBA color values (red, green, blue, alpha) -->
+      </material>
+    </visual>
+  </link>
+
+
+  <!-- !______________________ SENSORS INFORMATION ___________________________-->
+  
+  <!-- ! LIDAR SENSOR ___________________________-->
+  
+  <link name="lidar_link">
+  <!-- *Link description -->
+
+    <!-- *Definition of LIDAR sensor -->
+    <sensor name="lidar_sensor" type="ray">
+      <pose xyz="0.225 0 0.07" rpy="0 0 0" /> <!-- *Sensor position and orientation -->
+      <visualize>true</visualize> <!-- *Sensor visualization -->
+      <update_rate>10</update_rate> <!-- *Sensor update rate (10 Hz) -->
+
+      <!-- *LIDAR scan settings -->
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>360</samples> <!-- *Number of scan samples (360) -->
+            <resolution>1</resolution> <!-- *Angular resolution of the scan (1 radian) -->
+            <min_angle>-1.5708</min_angle> <!-- *Minimum scan angle (-90 degrees) -->
+            <max_angle>1.5708</max_angle> <!-- *Maximum scan angle (90 degrees) -->
+          </horizontal>
+        </scan>
+
+        <!-- *LIDAR range settings -->
+        <range>
+          <min>0.01</min> <!-- *Minimum range distance (0.01 meters) -->
+          <max>12.0</max> <!-- *Maximum range distance (12.0 meters) -->
+          <resolution>0.01</resolution> <!-- *Range resolution (0.01 meters) -->
+        </range>
+      </ray>
+    </sensor>
+  </link>
+
+  <joint name="lidar_joint" type="fixed">
+    <origin xyz="0 0.18 0.187" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="lidar_link" />
+
+    <!-- *Definition of LIDAR sensor -->
+    <sensor name="lidar_sensor" type="ray">
+      <pose xyz=" 0 0.225 0.07" rpy="0 0 0" /> <!-- *Sensor position and orientation -->
+      <visualize>true</visualize> <!-- *Sensor visualization -->
+      <update_rate>10</update_rate> <!-- *Sensor update rate (10 Hz) -->
+
+      <!-- *LIDAR scan settings -->
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>360</samples> <!-- *Number of scan samples (360) -->
+            <resolution>1</resolution> <!-- *Angular resolution of the scan (1 radian) -->
+            <min_angle>-1.5708</min_angle> <!-- *Minimum scan angle (-90 degrees) -->
+            <max_angle>1.5708</max_angle> <!-- *Maximum scan angle (90 degrees) -->
+          </horizontal>
+        </scan>
+
+        <!-- *LIDAR range settings -->
+        <range>
+          <min>0.01</min> <!-- *Minimum range distance (0.01 meters) -->
+          <max>12.0</max> <!-- *Maximum range distance (12.0 meters) -->
+          <resolution>0.01</resolution> <!-- *Range resolution (0.01 meters) -->
+        </range>
+      </ray>
+    </sensor>
+  </joint>
+
+  <!-- !______________________ WHEELS INFORMATION ___________________________-->
+  
+  <!-- ! WHEEL 1 ___________________________-->
+
+  <link
+    name="roda1_link">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/ubuntu/ros2_ws/src/fred2_description/meshes/roda1.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+  </link>
+  <joint
+    name="roda1"
+    type="continuous">
+    <origin
+      xyz="0.14881 0.113 0.025"
+      rpy="1.5708 -1.3493 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="roda1_link" />
+    <axis xyz="0 0 1" rpy="0 0 0" />
+
+  </joint>
+  
+  
+  
+  <!-- ! WHEEL 2 ___________________________--> 
+  <link
+    name="roda2_link">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/ubuntu/ros2_ws/src/fred2_description/meshes/roda2.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+  </link>
+  <joint
+    name="roda2"
+    type="continuous">
+    <origin
+      xyz="-0.14881 0.113 0.025"
+      rpy="1.5708 1.3493 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="roda2_link" />
+    <axis xyz="0 0 1" rpy="0 0 0" />
+
+  </joint>
+  
+
+  <!-- ! WHEEL 3 ___________________________-->
+  <link
+    name="roda3_link">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/ubuntu/ros2_ws/src/fred2_description/meshes/roda3.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+  </link>
+  <joint
+    name="roda3"
+    type="continuous">
+    <origin
+      xyz="0.14881 -0.113 0.025"
+      rpy="1.5708 0.72582 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="roda3_link" />
+    <axis xyz="0 0 1" rpy="0 0 0" />
+
+  </joint>
+  
+  
+  <!-- ! WHEEL 4 ___________________________-->
+  <link
+    name="roda4_link">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/ubuntu/ros2_ws/src/fred2_description/meshes/roda4.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+  </link>
+  <joint
+    name="roda4"
+    type="continuous">
+    <origin
+      xyz="-0.14881 -0.113 0.025"
+      rpy="1.5708 -0.72582 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="roda4_link" />
+    <axis xyz="0 0 1" rpy="0 0 0" />
+
+
+  </joint>
+</robot>
