@@ -11,13 +11,13 @@ import launch_ros.descriptions
 
 def generate_launch_description():
     pkg_share = launch_ros.substitutions.FindPackageShare(package='fred2_description').find('fred2_description')
-    default_model_path = os.path.join(pkg_share, 'src/description/fred_description.urdf')
+    default_model_path = os.path.join(pkg_share, 'src/description/fred_basic_forms.urdf')
     default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf.rviz')
 
     robot_state_publisher_node = launch_ros.actions.Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        parameters=[{'robot_description': launch_ros.descriptions.ParameterValue( launch.substitutions.Command(['xacro ',os.path.join(pkg_share,'src/description/fred_description.urdf')]), value_type=str)  }]    )
+        parameters=[{'robot_description': launch_ros.descriptions.ParameterValue( launch.substitutions.Command(['xacro ',os.path.join(pkg_share,'src/description/fred_basic_forms.urdf')]), value_type=str)  }]    )
     
     joint_state_publisher_node = launch_ros.actions.Node(
         package='joint_state_publisher',
