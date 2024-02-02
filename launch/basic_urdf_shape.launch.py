@@ -4,9 +4,11 @@ import launch
 from launch.substitutions import Command, LaunchConfiguration
 import launch_ros
 import os
+import launch_ros.descriptions
+
 from launch import LaunchDescription
 from launch_ros.actions import Node
-import launch_ros.descriptions
+from launch.actions import TimerAction, LogInfo
 
 
 def generate_launch_description():
@@ -18,8 +20,11 @@ def generate_launch_description():
         parameters=[{'robot_description': launch_ros.descriptions.ParameterValue( launch.substitutions.Command(['xacro ',os.path.join(pkg_share,'src/description/fred_basic_shape.urdf')]), value_type=str)  }]    )
     
 
-    return launch.LaunchDescription([
+    return LaunchDescription([
 
-        robot_state_publisher_node,
-        
+        TimerAction(period= 1.5, actions= [
+            
+            LogInfo(msg=' ######################### LAUNCHING ROBOT DESCRIPTION #################################### '), 
+            robot_state_publisher_node
+        ])
     ])
