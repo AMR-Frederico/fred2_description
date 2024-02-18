@@ -17,20 +17,23 @@ def generate_launch_description():
     robot_state_publisher_node = launch_ros.actions.Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        parameters=[{'robot_description': launch_ros.descriptions.ParameterValue( launch.substitutions.Command(['xacro ',os.path.join(pkg_share,'src/description/fred_basic_forms.urdf')]), value_type=str)  }]    )
+        parameters=[{'robot_description': launch_ros.descriptions.ParameterValue( launch.substitutions.Command(['xacro ',os.path.join(pkg_share,'src/description/fred_basic_forms.urdf')]), value_type=str)  }, 
+                    {'use_sim_time': False}]    )
     
     joint_state_publisher_node = launch_ros.actions.Node(
         package='joint_state_publisher',
         executable='joint_state_publisher',
         name='joint_state_publisher',
         arguments=[default_model_path],
-        condition=launch.conditions.UnlessCondition(LaunchConfiguration('gui'))
+        condition=launch.conditions.UnlessCondition(LaunchConfiguration('gui')), 
+        parameters=[{'use_sim_time': False}]
     )
     joint_state_publisher_gui_node = launch_ros.actions.Node(
         package='joint_state_publisher_gui',
         executable='joint_state_publisher_gui',
         name='joint_state_publisher_gui',
-        condition=launch.conditions.IfCondition(LaunchConfiguration('gui'))
+        condition=launch.conditions.IfCondition(LaunchConfiguration('gui')), 
+        parameters=[{'use_sim_time': False}]
     )
     rviz_node = launch_ros.actions.Node(
         package='rviz2',
@@ -38,6 +41,7 @@ def generate_launch_description():
         name='rviz2',
         output='screen',
         arguments=['-d', LaunchConfiguration('rvizconfig')],
+        parameters=[{'use_sim_time': False}]
     )
 
     return launch.LaunchDescription([

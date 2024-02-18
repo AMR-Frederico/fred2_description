@@ -25,7 +25,10 @@ def generate_launch_description():
         parameters=[{'robot_description': launch_ros.descriptions.ParameterValue(
             launch.substitutions.Command(['xacro ', os.path.join(pkg_share, 'src/description/fred_basic_shape.urdf')]),
             value_type=str
-        )}],
+        )}, 
+        {'use_sim_time': False},
+        
+        ],
     )
 
 
@@ -35,7 +38,8 @@ def generate_launch_description():
         package='joint_state_publisher',
         executable='joint_state_publisher',
         name='joint_state_publisher',
-        output='screen'
+        output='screen',
+        parameters=[{'use_sim_time': False}],
     )
 
 
